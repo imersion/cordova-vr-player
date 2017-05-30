@@ -1,3 +1,5 @@
+My fork fixes some issues I had with iOS.  Have not touched Android
+
 Cordova VR Player
 ======
 

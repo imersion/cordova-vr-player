@@ -8,7 +8,7 @@
     <license>MIT</license>
     <keywords></keywords>
     
-    <dependency id="cordova-plugin-cocoapod-support" url="https://github.com/Aerex/cordova-plugin-cocoapods-support/"/>
+    <dependency id="cordova-plugin-cocoapod-support"/>
 
     <!-- android -->
     <platform name="android">
@@ -44,7 +44,7 @@
 
     <!-- ios -->
     <platform name="ios">
-        <pods-config ios-min-version="9.0" uses-frameworks="true"/>
+        <pods-config ios-min-version="9.0" use-frameworks="true" use-legacy="true"/>
         <js-module src="www/plugin.js" name="plugin">
             <runs/>
             <clobbers target="GoogleVRPlayer" />
