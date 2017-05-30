@@ -61,6 +61,6 @@
         <source-file src="src/ios/VideoPlayerViewController.m" />
         <resource-file src="src/ios/Main.storyboard"  />
         
-        <pod id="GVRSDK" version="1.0.1" />
+        <pod id="GVRSDK" version="1.60.1" />
     </platform>
 </plugin>
