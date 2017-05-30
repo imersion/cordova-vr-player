@@ -26,12 +26,46 @@
     
     self.fallbackVideoPlayed = NO;
     
+    // get user defined path
     NSString *videoPath  =  [self valueForKey:@"videoUrl"];
+    // get user defined video type
+    NSString *videoType  =  [self valueForKey:@"videoType"];
+
+    // set video type GVRVideoType using the NSString user provided
+    GVRVideoType chosenType;
+    if ([videoType isEqual:[NSNull null]] {
+        chosenType = kGVRVideoTypeStereoOverUnder;
+    } else if ([videoType isEqualToString:@"Mono"]) {
+        chosenType = kGVRVideoTypeMono;
+    } else if ([videoType isEqualToString:@"StereoOverUnder"]) {
+        chosenType = kGVRVideoTypeStereoOverUnder;
+    } else if ([videoType isEqualToString:@"SphericalV2"]) {
+        chosenType = kGVRVideoTypeSphericalV2;
+    } else {
+        chosenType = kGVRVideoTypeStereoOverUnder;
+    }
+
+    // remove starting forward slash if User put one in
+    if ([videoPath hasPrefix:@"/"] && [videoPath length] > 1) {
+        videoPath = [videoPath substringFromIndex:1];
+    }
     
-    NSURL *videoUrl  = [NSURL URLWithString:videoPath];
+    // concat "www/" + videoPath
+    NSString *fullPath = [NSString stringWithFormat:@"%@%@", @"www/" , videoPath];
     
+    // get the full resource location of the video file
+    NSString *finalPath = [[[NSBundle mainBundle] resourcePath]
+                          stringByAppendingPathComponent:fullPath];
+    
+    // create NSURL object with it
+    NSURL *videoUrl  = [NSURL fileURLWithPath:finalPath];
+    NSLog(@"videoUrl is: %@", videoUrl);
+    
+    // and away we go!
+    // TODO: make ofType set by user as well
     [_videoView loadFromUrl:videoUrl
-                     ofType:kGVRVideoTypeMono];
+                     ofType:chosenType];
+
 }
 
 #pragma mark - GVRVideoViewDelegate
