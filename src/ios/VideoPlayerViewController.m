@@ -75,7 +75,7 @@ didFailToLoadContent:(id)content
     // Loop the video when it reaches the end.
     if (position == videoView.duration) {
         [_videoView seekTo:0];
-        [_videoView resume];
+        [_videoView play];
     }
 }
 

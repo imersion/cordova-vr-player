@@ -2,7 +2,7 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     id="cordova-vr-player"
-    version="1.2.0">
+    version="1.2.1">
     <name>Cordova VR Player</name>
     <description></description>
     <license>MIT</license>
@@ -61,6 +61,6 @@
         <source-file src="src/ios/VideoPlayerViewController.m" />
         <resource-file src="src/ios/Main.storyboard"  />
         
-        <pod id="GVRSDK" version="1.60.0" />
+        <pod id="GVRSDK" />
     </platform>
 </plugin>
