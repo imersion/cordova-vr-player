@@ -1,6 +1,6 @@
 {
   "name": "cordova-vr-player",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "cordova": {
     "id": "cordova-vr-player",
     "platforms": [

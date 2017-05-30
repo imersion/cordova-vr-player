@@ -33,7 +33,7 @@
 
     // set video type GVRVideoType using the NSString user provided
     GVRVideoType chosenType;
-    if ([videoType isEqual:[NSNull null]] {
+    if ([videoType isEqual:[NSNull null]]) {
         chosenType = kGVRVideoTypeStereoOverUnder;
     } else if ([videoType isEqualToString:@"Mono"]) {
         chosenType = kGVRVideoTypeMono;
