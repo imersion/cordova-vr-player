@@ -1,7 +1,3 @@
-**Warning:**
-
-I have only updated iOS.  I have not touched Android yet and it will most likely not work because I've updated the JS API for the plugin
-
 Cordova VR Player
 ======
 
@@ -30,6 +26,12 @@ Opens a view and starts playing video available under `videoUrl` parameter. The 
 example:
 
 ```javascript
+iOS
 GoogleVRPlayer.playVideo("videos/360.mp4", "videos/backup.mp4", "Mono");
 GoogleVRPlayer.playVideo("videos/360.mp4", null); // defaults to StereoOverUnder
+
+Android
+GoogleVRPlayer.playVideo(fileUri, null, 'FULLSCREEN_STEREO');
+GoogleVRPlayer.playVideo(fileUri, null, 'FULLSCREEN_MONO');
+GoogleVRPlayer.playVideo(fileUri, null, 'FULLSCREEN_EMBEDDED');
 ```
