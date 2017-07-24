@@ -27,11 +27,15 @@ public class VrVideoActivity extends Activity {
 
   private int loadVideoStatus = LOAD_VIDEO_STATUS_UNKNOWN;
 
-  /** Tracks the file to be loaded across the lifetime of this app. **/
+  /**
+   * Tracks the file to be loaded across the lifetime of this app.
+   **/
   private Uri fileUri;
   private Uri fallbackVideoUri;
 
-  /** Configuration information for the video. **/
+  /**
+   * Configuration information for the video.
+   **/
   private Options videoOptions = new Options();
 
   private VideoLoaderTask backgroundVideoLoaderTask;
@@ -45,17 +49,16 @@ public class VrVideoActivity extends Activity {
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    
+
     String package_name = getApplication().getPackageName();
     Resources resources = getApplication().getResources();
-    
+
     setContentView(resources.getIdentifier("main_layout", "layout", package_name));
 
     loadVideoStatus = LOAD_VIDEO_STATUS_UNKNOWN;
 
     // Bind input and output objects for the view.
     videoWidgetView = (VrVideoView) findViewById(resources.getIdentifier("video_view", "id", package_name));
-    videoWidgetView.setDisplayMode(VrWidgetView.DisplayMode.FULLSCREEN_MONO);
     videoWidgetView.setEventListener(new ActivityEventListener());
     videoWidgetView.setVisibility(View.INVISIBLE);
 
@@ -92,6 +95,7 @@ public class VrVideoActivity extends Activity {
     backgroundVideoLoaderTask = new VideoLoaderTask();
     backgroundVideoLoaderTask.execute(Pair.create(fileUri, videoOptions));
   }
+
   /**
    * Load custom videos based on the Intent or load the default video. See the Javadoc for this
    * class for information on generating a custom intent via adb.
@@ -101,8 +105,20 @@ public class VrVideoActivity extends Activity {
     if (extras != null) {
       fileUri = Uri.parse(extras.getString("videoUrl"));
       String fallbackVideo = extras.getString("fallbackVideoUrl");
-      if (fallbackVideo != null)
+      String displayMode = extras.getString("displayMode");
+      if (fallbackVideo != null) {
         fallbackVideoUri = Uri.parse(fallbackVideo);
+      }
+      if ("FULLSCREEN_STEREO".equals(displayMode)) {
+        videoWidgetView.setDisplayMode(VrWidgetView.DisplayMode.FULLSCREEN_STEREO);
+      } else if ("FULLSCREEN_MONO".equals(displayMode)) {
+        videoWidgetView.setDisplayMode(VrWidgetView.DisplayMode.FULLSCREEN_MONO);
+      } else if ("EMBEDDED".equals(displayMode)) {
+        videoWidgetView.setDisplayMode(VrWidgetView.DisplayMode.EMBEDDED);
+      } else {
+        Log.e(TAG, "Bad display mode: " + displayMode);
+        videoWidgetView.setDisplayMode(VrWidgetView.DisplayMode.FULLSCREEN_MONO);
+      }
     } else {
       fileUri = null;
     }
@@ -136,7 +152,7 @@ public class VrVideoActivity extends Activity {
   /**
    * Listen to the important events from widget.
    */
-  private class ActivityEventListener extends VrVideoEventListener  {
+  private class ActivityEventListener extends VrVideoEventListener {
     /**
      * Called by video widget on the UI thread when it's done loading the video.
      */
@@ -148,10 +164,11 @@ public class VrVideoActivity extends Activity {
 
     @Override
     public void onDisplayModeChanged(int newDisplayMode) {
-      if (newDisplayMode != VrWidgetView.DisplayMode.FULLSCREEN_STEREO && newDisplayMode !=  VrWidgetView.DisplayMode.FULLSCREEN_MONO){
+      if (newDisplayMode != VrWidgetView.DisplayMode.FULLSCREEN_STEREO && newDisplayMode != VrWidgetView.DisplayMode.FULLSCREEN_MONO) {
         activity.finish();
       }
     }
+
     /**
      * Called by video widget on the UI thread on any asynchronous error.
      */
@@ -160,10 +177,10 @@ public class VrVideoActivity extends Activity {
       // An error here is normally due to being unable to decode the video format.
       loadVideoStatus = LOAD_VIDEO_STATUS_ERROR;
       //Attempt to load fallback video
-      if (!fallbackVideoLoaded){
+      if (!fallbackVideoLoaded) {
         fallbackVideoLoaded = true;
         launchVideoLoader(fallbackVideoUri);
-      }else {
+      } else {
         Toast.makeText(
                 VrVideoActivity.this, "Error loading video: " + errorMessage, Toast.LENGTH_LONG)
                 .show();
