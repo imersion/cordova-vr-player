@@ -109,9 +109,9 @@ public class VrVideoActivity extends Activity {
       if (fallbackVideo != null) {
         fallbackVideoUri = Uri.parse(fallbackVideo);
       }
-      if ("FULLSCREEN_STEREO".equals(displayMode) || "Mono".equals(displayMode)) {
+      if ("FULLSCREEN_STEREO".equals(displayMode) || "Stereo".equals(displayMode)) {
         videoWidgetView.setDisplayMode(VrWidgetView.DisplayMode.FULLSCREEN_STEREO);
-      } else if ("FULLSCREEN_MONO".equals(displayMode) || "Stereo".equals(displayMode)) {
+      } else if ("FULLSCREEN_MONO".equals(displayMode) || "Mono".equals(displayMode)) {
         videoWidgetView.setDisplayMode(VrWidgetView.DisplayMode.FULLSCREEN_MONO);
       } else if ("EMBEDDED".equals(displayMode)) {
         videoWidgetView.setDisplayMode(VrWidgetView.DisplayMode.EMBEDDED);
