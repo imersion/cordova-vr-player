@@ -31,7 +31,8 @@ GoogleVRPlayer.playVideo("videos/360.mp4", "videos/backup.mp4", "Mono");
 GoogleVRPlayer.playVideo("videos/360.mp4", null); // defaults to StereoOverUnder
 
 Android
-GoogleVRPlayer.playVideo(fileUri, null, 'FULLSCREEN_STEREO');
-GoogleVRPlayer.playVideo(fileUri, null, 'FULLSCREEN_MONO');
+GoogleVRPlayer.playVideo(fileUri, null, 'FULLSCREEN_STEREO'); // or 'Stereo'
+GoogleVRPlayer.playVideo(fileUri, null, 'FULLSCREEN_MONO'); // or 'Mono'
 GoogleVRPlayer.playVideo(fileUri, null, 'FULLSCREEN_EMBEDDED');
+default: mono
 ```
