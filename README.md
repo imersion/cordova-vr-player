@@ -34,5 +34,5 @@ Android
 GoogleVRPlayer.playVideo(fileUri, null, 'FULLSCREEN_STEREO'); // or 'Stereo'
 GoogleVRPlayer.playVideo(fileUri, null, 'FULLSCREEN_MONO'); // or 'Mono'
 GoogleVRPlayer.playVideo(fileUri, null, 'FULLSCREEN_EMBEDDED');
-default: mono
+default: FULLSCREEN_MONO
 ```
